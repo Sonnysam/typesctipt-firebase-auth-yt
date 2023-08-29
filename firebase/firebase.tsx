@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-//   apiKey: "AIzaSyDznbLMFmFxLvPS0XB1ytoj7q0H54aMsMA",
-//   authDomain: "ag-pay.firebaseapp.com",
-//   projectId: "ag-pay",
-//   storageBucket: "ag-pay.appspot.com",
-//   messagingSenderId: "380201047463",
-//   appId: "1:380201047463:web:3ed4571ea016d86afc1282",
+  apiKey: "AIzaSyDznbLMFmFxLvPS0XB1ytoj7q0H54aMsMA",
+  authDomain: "ag-pay.firebaseapp.com",
+  projectId: "ag-pay",
+  storageBucket: "ag-pay.appspot.com",
+  messagingSenderId: "380201047463",
+  appId: "1:380201047463:web:3ed4571ea016d86afc1282",
 };
 
 // Initialize Firebase
