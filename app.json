@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "typescript-fire-auth-yt",
-    "slug": "typescript-fire-auth-yt",
+    "name": "firebase-ts-auth",
+    "slug": "firebase-ts-auth",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
