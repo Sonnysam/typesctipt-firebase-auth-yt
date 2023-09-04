@@ -13,6 +13,10 @@ import { Feather } from "@expo/vector-icons";
 import { auth, db } from "../firebase/firebase";
 
 import { Entypo } from "@expo/vector-icons";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const { width, height } = Dimensions.get("window");
 let top;
@@ -25,7 +29,21 @@ if (Platform.OS === "ios") {
 export default function Login({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<any>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
+  const handleSignin = async () => {
+    setLoading(true);
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setLoading(false);
+        alert("Logged in successfully 🎉");
+        // navigation.push("Dashboard");
+      })
+      .catch((error: any) => {
+        alert(error.message);
+      });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.loginHeader}>
@@ -50,6 +68,7 @@ export default function Login({ navigation }: { navigation: any }) {
             style={styles.passwordInput}
             placeholder="Enter your password"
             value={password}
+            secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
           />
         </View>
@@ -61,7 +80,7 @@ export default function Login({ navigation }: { navigation: any }) {
         </View>
         {/* Login Button */}
         <View style={styles.loginButton}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={handleSignin}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
         </View>

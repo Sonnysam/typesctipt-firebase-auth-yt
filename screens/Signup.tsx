@@ -13,6 +13,7 @@ import { Feather } from "@expo/vector-icons";
 import { auth, db } from "../firebase/firebase";
 
 import { Entypo } from "@expo/vector-icons";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const { width, height } = Dimensions.get("window");
 let top;
@@ -25,7 +26,21 @@ if (Platform.OS === "ios") {
 export default function Signup({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<any>("");
-  const [username, setUsername] = useState<string>("")
+  const [username, setUsername] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleSignup = async () => {
+    setLoading(true);
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setLoading(false);
+        alert("Account created successfully 🎉");
+      })
+      .catch((error: any) => {
+        alert(error.message);
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -34,8 +49,8 @@ export default function Signup({ navigation }: { navigation: any }) {
       </View>
 
       <View style={styles.loginContainer}>
-         {/* Username */}
-         <View style={styles.emailContainer}>
+        {/* Username */}
+        <View style={styles.emailContainer}>
           <Text style={styles.emailText}>Username</Text>
           <TextInput
             style={styles.emailInput}
@@ -61,6 +76,7 @@ export default function Signup({ navigation }: { navigation: any }) {
             style={styles.passwordInput}
             placeholder="Enter your password"
             value={password}
+            secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
           />
         </View>
@@ -68,8 +84,10 @@ export default function Signup({ navigation }: { navigation: any }) {
 
         {/* Login Button */}
         <View style={styles.loginButton}>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.loginButtonText}>Create Account</Text>
+          <TouchableOpacity onPress={handleSignup}>
+            <Text style={styles.loginButtonText}>
+              {loading ? "Creating account..." : "Create Account"}
+            </Text>
           </TouchableOpacity>
         </View>
 
