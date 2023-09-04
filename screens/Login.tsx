@@ -11,12 +11,8 @@ import React, { useState } from "react";
 import Colors from "../constants/Colors";
 import { Feather } from "@expo/vector-icons";
 import { auth, db } from "../firebase/firebase";
-
 import { Entypo } from "@expo/vector-icons";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const { width, height } = Dimensions.get("window");
 let top;
@@ -33,17 +29,18 @@ export default function Login({ navigation }: { navigation: any }) {
 
   const handleSignin = async () => {
     setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password)
+    await
+    signInWithEmailAndPassword(auth, email.trim(), password)
       .then((userCredential) => {
         const user = userCredential.user;
         setLoading(false);
-        alert("Logged in successfully 🎉");
-        // navigation.push("Dashboard");
+        alert("login successful :)");
       })
-      .catch((error: any) => {
-        alert(error.message);
+      .catch((err: any) => {
+        alert(err.meassage);
       });
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.loginHeader}>
@@ -81,7 +78,11 @@ export default function Login({ navigation }: { navigation: any }) {
         {/* Login Button */}
         <View style={styles.loginButton}>
           <TouchableOpacity onPress={handleSignin}>
-            <Text style={styles.loginButtonText}>Login</Text>
+            <Text style={styles.loginButtonText}>
+              {
+                loading ? "Logging" : "Login"
+              }
+            </Text>
           </TouchableOpacity>
         </View>
 

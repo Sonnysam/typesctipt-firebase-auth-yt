@@ -11,7 +11,6 @@ import React, { useState } from "react";
 import Colors from "../constants/Colors";
 import { Feather } from "@expo/vector-icons";
 import { auth, db } from "../firebase/firebase";
-
 import { Entypo } from "@expo/vector-icons";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -31,14 +30,15 @@ export default function Signup({ navigation }: { navigation: any }) {
 
   const handleSignup = async () => {
     setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password)
+    await
+    createUserWithEmailAndPassword(auth, email.trim(), password)
       .then((userCredential) => {
         const user = userCredential.user;
         setLoading(false);
-        alert("Account created successfully 🎉");
+        alert("account created successfully :)");
       })
-      .catch((error: any) => {
-        alert(error.message);
+      .catch((err: any) => {
+        alert(err.meassage);
       });
   };
 
