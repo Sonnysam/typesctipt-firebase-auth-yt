@@ -12,9 +12,18 @@ import React, { useState } from "react";
 import Colors from "../constants/Colors";
 import { auth } from "../firebase/firebase";
 import { Feather } from "@expo/vector-icons";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 export default function ForgotPassword() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
+
+
+  const handleResetPassword = async () => {
+    await
+      sendPasswordResetEmail(auth, email.trim())
+      .then(() => alert("Password reset email sent🚀"))
+      .catch((error) => alert(error.message));
+  };
 
   return (
     <View style={styles.container}>
@@ -49,7 +58,7 @@ export default function ForgotPassword() {
             onChangeText={(text) => setEmail(text)}
           />
         </View>
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => {}}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleResetPassword}>
           <View>
             <Text style={styles.send}>Send password reset link</Text>
           </View>
