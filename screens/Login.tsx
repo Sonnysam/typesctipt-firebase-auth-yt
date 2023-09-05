@@ -80,7 +80,7 @@ export default function Login({ navigation }: { navigation: any }) {
           <TouchableOpacity onPress={handleSignin}>
             <Text style={styles.loginButtonText}>
               {
-                loading ? "Logging" : "Login"
+                loading ? "Loading" : "Login"
               }
             </Text>
           </TouchableOpacity>

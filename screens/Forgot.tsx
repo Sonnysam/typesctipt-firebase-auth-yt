@@ -18,13 +18,10 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState<string>("");
 
   const handlePassword = async () => {
-    await sendPasswordResetEmail(auth, email.trim())
-      .then(() => alert("Password reset email sent!!"))
-      .catch((error: any) => {
-        alert(error.message);
-      });
+    await sendPasswordResetEmail(auth, email)
+      .then(() => alert("password reset email sent 🚀"))
+      .catch((error: any) => console.log(error.message));
   };
-
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
