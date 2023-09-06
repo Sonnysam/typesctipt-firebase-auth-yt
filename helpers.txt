@@ -37,10 +37,12 @@ export default function Signup({ navigation }: { navigation: any }) {
       .then((userCredential) => {
         const user = userCredential.user;
         setLoading(false);
+        // alert("account created successfully :)");
         setDoc(doc(db, "users", user.uid), {
           Name: username,
           Email: email,
           PhoneNumber: phone,
+          displayName: username,
           CreatedAt: new Date().toUTCString(),
         });
       })
@@ -221,3 +223,14 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 });
+
+//   rules_version = '2';
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write: if
+//           request.time < timestamp.date(2024, 12, 25);
+//     }
+//   }
+// }
+  
